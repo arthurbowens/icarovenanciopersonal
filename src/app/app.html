@@ -242,7 +242,11 @@
       </div>
 
       <div class="relative max-w-3xl mx-auto">
-        <div class="overflow-hidden">
+        <div
+          class="overflow-hidden touch-pan-y select-none"
+          (touchstart)="onCarouselTouchStart($event)"
+          (touchend)="onCarouselTouchEnd($event)"
+        >
           <div
             class="flex transition-transform duration-500 ease-out"
             [style.transform]="'translateX(-' + currentSlide() * 100 + '%)'"

@@ -18,9 +18,9 @@ export class App implements OnInit, OnDestroy {
   )}`;
 
   protected readonly resultados = [
-    'resultado1.png',
-    'resultado2.png',
-    'resultado3.png',
+    'resultado01.png',
+    'resultado02.png',
+    'resultado03.png',
     'resultado4.png',
     'resultado5.png',
     'resultado6.png',
@@ -76,6 +76,8 @@ export class App implements OnInit, OnDestroy {
   protected readonly currentSlide = signal(0);
   protected readonly menuOpen = signal(false);
   private autoPlayId?: ReturnType<typeof setInterval>;
+  private touchStartX = 0;
+  private readonly swipeThreshold = 50;
 
   protected toggleMenu(): void {
     this.menuOpen.update((open) => !open);
@@ -124,5 +126,21 @@ export class App implements OnInit, OnDestroy {
 
   protected goToSlide(index: number): void {
     this.currentSlide.set(index);
+  }
+
+  protected onCarouselTouchStart(event: TouchEvent): void {
+    this.touchStartX = event.changedTouches[0].clientX;
+  }
+
+  protected onCarouselTouchEnd(event: TouchEvent): void {
+    const diff = this.touchStartX - event.changedTouches[0].clientX;
+
+    if (Math.abs(diff) < this.swipeThreshold) return;
+
+    if (diff > 0) {
+      this.nextSlide();
+    } else {
+      this.prevSlide();
+    }
   }
 }
