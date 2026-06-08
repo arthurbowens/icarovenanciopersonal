@@ -14,7 +14,7 @@
         <a href="#formacao" class="hover:text-brand transition-colors">Formação</a>
         <a href="#metodologia" class="hover:text-brand transition-colors">Metodologia</a>
         <a href="#resultados" class="hover:text-brand transition-colors">Resultados</a>
-        <a href="#contato" class="hover:text-brand transition-colors">Contato</a>
+        <a [href]="whatsappUrl" target="_blank" rel="noopener noreferrer" class="hover:text-brand transition-colors">Contato</a>
       </nav>
     </div>
   </header>
@@ -52,13 +52,17 @@
 
         <div class="flex flex-wrap gap-4">
           <a
-            href="#contato"
+            [href]="whatsappUrl"
+            target="_blank"
+            rel="noopener noreferrer"
             class="inline-flex items-center gap-2 px-7 py-3.5 bg-brand hover:opacity-90 text-white text-sm font-semibold tracking-wide uppercase transition-opacity"
           >
             Comece sua transformação
           </a>
           <a
-            href="#metodologia"
+            [href]="whatsappUrl"
+            target="_blank"
+            rel="noopener noreferrer"
             class="inline-flex items-center gap-2 px-7 py-3.5 border border-brand text-brand hover:bg-brand hover:text-white text-sm font-medium tracking-wide uppercase transition-colors"
           >
             Glúteo 3D
@@ -66,14 +70,14 @@
         </div>
       </div>
 
-      <div class="order-1 md:order-2">
-        <div class="aspect-[3/4] overflow-hidden">
-          <img
-            src="foto1.jpeg"
-            alt="Ícaro Venâncio — Personal Trainer"
-            class="w-full h-full object-cover object-top"
-          />
-        </div>
+      <div class="order-1 md:order-2 flex justify-center md:justify-end">
+        <img
+          src="foto1.jpeg"
+          alt="Ícaro Venâncio — Personal Trainer"
+          width="352"
+          height="630"
+          class="w-full max-w-[352px] h-auto"
+        />
       </div>
     </div>
   </section>
@@ -83,13 +87,13 @@
     <div class="max-w-6xl mx-auto px-6 py-20 md:py-28">
       <div class="grid md:grid-cols-2 gap-12 md:gap-20 items-start">
         <div>
-          <div class="aspect-[4/5] overflow-hidden">
-            <img
-              src="foto2.jpeg"
-              alt="Ícaro Venâncio em treino"
-              class="w-full h-full object-cover"
-            />
-          </div>
+          <img
+            src="foto2.jpeg"
+            alt="Ícaro Venâncio em treino"
+            width="720"
+            height="1280"
+            class="w-full h-auto"
+          />
         </div>
 
         <div>
@@ -314,7 +318,7 @@
       </p>
 
       <a
-        href="https://wa.me/"
+        [href]="whatsappUrl"
         target="_blank"
         rel="noopener noreferrer"
         class="inline-flex items-center gap-2 px-8 py-4 bg-brand hover:opacity-90 text-white text-sm font-semibold tracking-wide uppercase transition-opacity"

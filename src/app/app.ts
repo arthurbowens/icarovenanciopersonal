@@ -8,6 +8,9 @@ import { RouterOutlet } from '@angular/router';
 })
 export class App implements OnInit, OnDestroy {
   protected readonly year = new Date().getFullYear();
+  protected readonly whatsappUrl = `https://wa.me/5554993225075?text=${encodeURIComponent(
+    'Olá, Ícaro! Vim pelo site e tenho interesse na Metodologia Glúteo 3D. Gostaria de saber mais sobre a consultoria!',
+  )}`;
 
   protected readonly resultados = [
     'resultado1.png',
