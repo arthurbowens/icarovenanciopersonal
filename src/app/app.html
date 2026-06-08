@@ -1,14 +1,15 @@
 <div class="min-h-screen bg-dark text-white overflow-x-hidden">
   <!-- Header -->
-  <header class="border-b border-white/10">
+  <header class="border-b border-white/10 relative z-50">
     <div class="max-w-6xl mx-auto px-6 py-2 flex items-center justify-between gap-4">
-      <a href="#" class="flex items-center shrink-0">
+      <a href="#" class="flex items-center shrink-0" (click)="closeMenu()">
         <img
           src="logo.png"
           alt="Ícaro Venâncio Personal Trainer"
           class="h-20 sm:h-24 w-auto"
         />
       </a>
+
       <nav class="hidden md:flex items-center gap-6 text-sm text-white/70">
         <a href="#sobre" class="hover:text-brand transition-colors">Sobre</a>
         <a href="#formacao" class="hover:text-brand transition-colors">Formação</a>
@@ -16,7 +17,35 @@
         <a href="#resultados" class="hover:text-brand transition-colors">Resultados</a>
         <a [href]="whatsappUrl" target="_blank" rel="noopener noreferrer" class="hover:text-brand transition-colors">Contato</a>
       </nav>
+
+      <button
+        type="button"
+        class="md:hidden flex items-center justify-center w-10 h-10 text-white"
+        (click)="toggleMenu()"
+        [attr.aria-expanded]="menuOpen()"
+        [attr.aria-label]="menuOpen() ? 'Fechar menu' : 'Abrir menu'"
+      >
+        @if (menuOpen()) {
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 6 6 18"/><path d="m6 6 12 12"/>
+          </svg>
+        } @else {
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="18" y2="18"/>
+          </svg>
+        }
+      </button>
     </div>
+
+    @if (menuOpen()) {
+      <nav class="md:hidden border-t border-white/10 bg-dark px-6 py-4 flex flex-col gap-4 text-sm text-white/80">
+        <a href="#sobre" class="hover:text-brand transition-colors" (click)="closeMenu()">Sobre</a>
+        <a href="#formacao" class="hover:text-brand transition-colors" (click)="closeMenu()">Formação</a>
+        <a href="#metodologia" class="hover:text-brand transition-colors" (click)="closeMenu()">Metodologia</a>
+        <a href="#resultados" class="hover:text-brand transition-colors" (click)="closeMenu()">Resultados</a>
+        <a [href]="whatsappUrl" target="_blank" rel="noopener noreferrer" class="hover:text-brand transition-colors" (click)="closeMenu()">Contato</a>
+      </nav>
+    }
   </header>
 
   <!-- Hero -->

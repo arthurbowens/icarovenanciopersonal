@@ -41,9 +41,35 @@ app.use(
 app.use((req, res, next) => {
   angularApp
     .handle(req)
-    .then((response) =>
-      response ? writeResponseToNodeResponse(response, res) : next(),
-    )
+    .then(async (response) => {
+      if (!response) {
+        next();
+        return;
+      }
+
+      const contentType = response.headers.get('content-type') ?? '';
+      if (!contentType.includes('text/html')) {
+        writeResponseToNodeResponse(response, res);
+        return;
+      }
+
+      const host = req.get('x-forwarded-host') ?? req.get('host');
+      const proto = req.get('x-forwarded-proto') ?? 'https';
+      const origin = host ? `${proto}://${host}` : '';
+
+      let html = await response.text();
+      if (origin) {
+        html = html.replaceAll('content="/foto1.jpeg"', `content="${origin}/foto1.jpeg"`);
+      }
+
+      res.status(response.status);
+      response.headers.forEach((value, key) => {
+        if (key.toLowerCase() !== 'content-length') {
+          res.setHeader(key, value);
+        }
+      });
+      res.send(html);
+    })
     .catch(next);
 });
 

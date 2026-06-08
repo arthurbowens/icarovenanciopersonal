@@ -1,4 +1,6 @@
-import { Component, OnDestroy, OnInit, signal } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { Component, OnDestroy, OnInit, inject, signal } from '@angular/core';
+import { Meta } from '@angular/platform-browser';
 import { RouterOutlet } from '@angular/router';
 
 @Component({
@@ -7,6 +9,9 @@ import { RouterOutlet } from '@angular/router';
   templateUrl: './app.html',
 })
 export class App implements OnInit, OnDestroy {
+  private readonly meta = inject(Meta);
+  private readonly document = inject(DOCUMENT);
+
   protected readonly year = new Date().getFullYear();
   protected readonly whatsappUrl = `https://wa.me/5554993225075?text=${encodeURIComponent(
     'Olá, Ícaro! Vim pelo site e tenho interesse na Metodologia Glúteo 3D. Gostaria de saber mais sobre a consultoria!',
@@ -69,10 +74,38 @@ export class App implements OnInit, OnDestroy {
   ];
 
   protected readonly currentSlide = signal(0);
+  protected readonly menuOpen = signal(false);
   private autoPlayId?: ReturnType<typeof setInterval>;
 
+  protected toggleMenu(): void {
+    this.menuOpen.update((open) => !open);
+  }
+
+  protected closeMenu(): void {
+    this.menuOpen.set(false);
+  }
+
   ngOnInit(): void {
+    this.setShareMeta();
     this.autoPlayId = setInterval(() => this.nextSlide(), 5000);
+  }
+
+  private setShareMeta(): void {
+    const origin = this.document.defaultView?.location.origin;
+    if (!origin) return;
+
+    const imageUrl = `${origin}/foto1.jpeg`;
+    const title = 'Ícaro Venâncio | Personal Trainer — Glúteo 3D';
+    const description =
+      'Personal Trainer especializado em desenvolvimento de glúteos. Criador da Metodologia Glúteo 3D.';
+
+    this.meta.updateTag({ property: 'og:image', content: imageUrl });
+    this.meta.updateTag({ property: 'og:url', content: `${origin}/` });
+    this.meta.updateTag({ name: 'twitter:image', content: imageUrl });
+    this.meta.updateTag({ property: 'og:title', content: title });
+    this.meta.updateTag({ property: 'og:description', content: description });
+    this.meta.updateTag({ name: 'twitter:title', content: title });
+    this.meta.updateTag({ name: 'twitter:description', content: description });
   }
 
   ngOnDestroy(): void {
