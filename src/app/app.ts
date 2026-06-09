@@ -97,7 +97,7 @@ export class App implements OnInit, OnDestroy {
     if (!origin) return;
 
     const imageUrl = `${origin}/foto1.jpeg`;
-    const title = 'Ícaro Venâncio | Personal Trainer — Glúteo 3D';
+    const title = 'Ícaro Venancio | Personal Trainer — Glúteo 3D';
     const description =
       'Personal Trainer especializado em desenvolvimento de glúteos. Criador da Metodologia Glúteo 3D.';
 
